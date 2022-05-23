@@ -1,27 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import Layout from './src/components/Layout';
-import { Colors } from './src/utils/colors';
+import * as React from 'react';
+import MainNavigator from './src/navigation/MainNavigator';
+import { useFonts } from 'expo-font';
+import Loading from './src/components/Loading';
 
-export default function App() {
+function App() {
+
+  const [loaded] = useFonts({
+    Koulen: require('./assets/Fonts/Koulen/Koulen-Regular.ttf'),
+    LatoRegular: require('./assets/Fonts/Lato/Lato-Regular.ttf')
+  });
+  
+  if (!loaded) {
+    return <Loading/>;
+  }
+
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" color={Colors.primary} />
-      <Layout />
-    </View>
+    <MainNavigator/>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: '#8E44AD',
-    fontWeight: 'bold',
-    fontSize: 22
-  }
-});
+export default App;
+
