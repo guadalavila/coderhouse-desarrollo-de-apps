@@ -5,16 +5,18 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DashboardScreen from "../screens/DashboardScreen";
 import DetailCategoryScreen from "../screens/DetailCategoryScreen";
 import { customHeader } from "../utils/styles";
+import TabNavigatorLogged from "./tabs/TabNavigatorLogged";
 
 const Stack = createNativeStackNavigator();
 
 function MainNavigator() {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <TabNavigatorLogged />
+            {/* <Stack.Navigator>
                 <Stack.Screen name="Home" component={DashboardScreen} options={{ title: 'Categorias', ...customHeader}}   />
                 <Stack.Screen name="DetailCategoryScreen" component={DetailCategoryScreen} options={{title: '', ...customHeader}} />
-            </Stack.Navigator>
+            </Stack.Navigator> */}
         </NavigationContainer>
     );
 }

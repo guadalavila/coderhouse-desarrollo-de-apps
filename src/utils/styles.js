@@ -9,3 +9,15 @@ export const customHeader = {
         fontWeight: 'bold',
     }
 }
+
+
+export const customTabHeader = {
+    headerStyle: {
+      backgroundColor: Colors.primary
+    },
+    headerTintColor: "black",
+    headerTitleStyle: {
+      fontWeight: 'bold'
+    },
+    headerTitleAlign: "center",
+}
