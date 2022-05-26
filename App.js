@@ -5,14 +5,14 @@ import Loading from './src/components/Loading';
 
 function App() {
 
-  // const [loaded] = useFonts({
-  //   Koulen: require('./assets/Fonts/Koulen/Koulen-Regular.ttf'),
-  //   LatoRegular: require('./assets/Fonts/Lato/Lato-Regular.ttf')
-  // });
+  const [loaded] = useFonts({
+    Koulen: require('./assets/Fonts/Koulen/Koulen-Regular.ttf'),
+    LatoRegular: require('./assets/Fonts/Lato/Lato-Regular.ttf')
+  });
 
-  // if (!loaded) {
-  //   return <Loading/>;
-  // }
+  if (!loaded) {
+    return <Loading/>;
+  }
 
   return (
     <MainNavigator/>
