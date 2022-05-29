@@ -2,6 +2,8 @@ import * as React from 'react';
 import MainNavigator from './src/navigation/MainNavigator';
 import { useFonts } from 'expo-font';
 import Loading from './src/components/Loading';
+import { Provider } from 'react-redux';
+import store from './src/store';
 
 function App() {
 
@@ -15,7 +17,9 @@ function App() {
   }
 
   return (
-    <MainNavigator/>
+    <Provider store={store}>
+      <MainNavigator/>
+    </Provider>
   );
 }
 

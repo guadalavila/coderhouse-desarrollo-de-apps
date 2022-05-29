@@ -2,25 +2,22 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import Loading from "../components/Loading";
 import Product from "../components/Product";
-import { PRODUCTS } from "../mock/products";
+import {  useSelector } from 'react-redux';
 
-const DetailCategoryScreen = ({route, navigation}) => {
+const DetailCategoryScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(true)
-    const [products, setProducts] = useState([]);
+    const { categorySelected } = useSelector(state => state.categories.value);
+    const { productsByCategory } = useSelector(state => state.products.value);
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: route.params?.name 
+            title: categorySelected.category
         });
     }, [navigation]);
     
 
     useEffect(() => {
-        const list = PRODUCTS.filter(x=> x.category === route.params?.id);
-        setProducts(list);
-        setTimeout(() => {
-            setLoading(false)
-        }, 1200);
+        setTimeout(() => setLoading(false), 1200);
     }, [])
 
     if(loading){
@@ -33,9 +30,9 @@ const DetailCategoryScreen = ({route, navigation}) => {
 
     return (
         <View style={styles.container}> 
-            {products?.length > 0 ? 
+            {productsByCategory?.length > 0 ? 
                 <FlatList
-                    data={products}
+                    data={productsByCategory}
                     renderItem={(item) => (
                         <Product item={item.item} />
                     )}

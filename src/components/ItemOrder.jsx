@@ -8,7 +8,6 @@ const formatDay = (time) => {
 }
 
 const ItemOrder = ({item: {id, total,date}}) => {
-    console.log(total)
   return (
     <View style={styles.item}>
         <Text>{formatDay(date)}</Text>
