@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import Loading from "../components/Loading";
 import Product from "../components/Product";
 import {  useSelector } from 'react-redux';
+import { SCREENS } from "../utils/screens";
 
 const DetailCategoryScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(true)
@@ -34,7 +35,9 @@ const DetailCategoryScreen = ({ navigation }) => {
                 <FlatList
                     data={productsByCategory}
                     renderItem={(item) => (
-                        <Product item={item.item} />
+                        <Product item={item.item} onPress={() =>{
+                            navigation.navigate("DetailProductScreen",{ product: item.item });
+                        }}/>
                     )}
                     keyExtractor={(item) => item.id}
                 /> :

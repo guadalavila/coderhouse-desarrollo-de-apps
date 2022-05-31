@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { Colors } from '../utils/colors'
 
-const Product = (item) => {
-    const {item:{ description, price, image}} = item
+const Product = ({item, onPress} ) => {
+    const { description, price, image} = item;
 
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.7}>
             <Image
                 style={styles.image}
                 source={{uri: image}}
@@ -15,7 +15,7 @@ const Product = (item) => {
                 <Text style={styles.title}>{description}</Text>
                 <Text style={styles.subtitle}>Precio: ${price}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

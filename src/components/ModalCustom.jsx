@@ -2,13 +2,13 @@ import React from "react";
 import { StyleSheet, Text, View, Modal, Pressable } from "react-native";
 import { Colors } from "../utils/colors";
 
-const ModalCustom = ({ onCancel, totalTask }) => {
+const ModalCustom = ({ onCancel, message }) => {
     return (
         <Modal animationType="slide" transparent={true} visible={true}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Text style={styles.modalText}>INFO!</Text>
-                    <Text>Cantidad de Tareas: {totalTask}</Text>
+                    <Text style={styles.modalText}>Producto Agregado!</Text>
+                    <Text>{message}</Text>
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
                         onPress={onCancel}

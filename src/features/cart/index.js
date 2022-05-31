@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CART } from "../../mock/cart";
 
 const initialState = {
     value: {
-        cart: CART,
+        cart: [],
         total: 0
     }
 }
@@ -12,9 +11,12 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState: initialState,
     reducers: {
+        addProduct: (state, action) =>{
+            state.value.cart.push(action.payload);
+        }
     }
 })
 
-// export const { selectCategory } = cartSlice.actions
+export const { addProduct } = cartSlice.actions;
 
 export default cartSlice.reducer;

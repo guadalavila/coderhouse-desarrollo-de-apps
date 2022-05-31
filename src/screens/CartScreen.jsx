@@ -10,6 +10,7 @@ const CartScreen = () => {
 
   const getTotal = () => {
     let value = 0;
+    console.log({cart})
     if(cart) { 
       cart.forEach(element => {
         value = value + (element.price * element.quantity);

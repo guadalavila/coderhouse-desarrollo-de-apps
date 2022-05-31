@@ -40,12 +40,12 @@ const Layout = () => {
                     setTask("");
                 }}
             />
-            {showModal && (
+            {/* {showModal && (
                 <ModalCustom
                     totalTask={tasks.length}
                     onCancel={() => setShowModal(false)}
                 />
-            )}
+            )} */}
         </View>
     );
 };

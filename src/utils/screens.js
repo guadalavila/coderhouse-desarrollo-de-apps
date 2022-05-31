@@ -1,5 +1,7 @@
 import DashboardScreen from "../screens/DashboardScreen"
 import DetailCategoryScreen from "../screens/DetailCategoryScreen"
+import DetailProductScreen from "../screens/DetailProductScreen"
+
 
 export const SCREENS = {
     Dashboard: {
@@ -9,5 +11,9 @@ export const SCREENS = {
     Detail:{
         name:'DetailCategoryScreen',
         component: DetailCategoryScreen
+    },
+    DetailProduct: {
+        name: 'DetailProductScreen',
+        component: DetailProductScreen
     }
 }
