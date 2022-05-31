@@ -29,7 +29,7 @@ const CartScreen = () => {
     <View style={styles.container}>
       <FlatList
         data={cart}
-        renderItem={(item) => (<ItemCart item={item.item}/>)}
+        renderItem={(item) => (<ItemCart key={item.item.id} item={item.item}/>)}
         keyExtractor={(item) => item.id}/>
       <View style={styles.bottom}>
         <ButtonCustom

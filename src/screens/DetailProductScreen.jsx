@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ButtonCustom from '../components/ButtonCustom';
 import Loading from '../components/Loading';
 import ModalCustom from '../components/ModalCustom';
@@ -12,11 +12,24 @@ const DetailProductScreen = ({route}) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false)
     const dispatch = useDispatch();
+    const {cart} = useSelector(state => state.cart.value);
 
     useEffect(() => {
         setProduct(route.params?.product);
         setLoading(false);
     }, [])
+
+    const handleAddProduct = () => {
+        const modifyQuantity = cart.find(x=>x.id===product.id);
+        console.log({modifyQuantity})
+        if(modifyQuantity){
+            // dispatch(addProduct({...product, quantity:1 }))
+            return;
+        }else{
+            dispatch(addProduct({...product, quantity:1 }))
+        }
+        setShowModal(true);
+    }
 
     if(loading){
         return <Loading/>
@@ -30,10 +43,7 @@ const DetailProductScreen = ({route}) => {
           <Text style={styles.price}>$ {product.price}</Text>
           <ButtonCustom
            label={"Agregar al Carrito"}
-           onPress={() => {
-               setShowModal(true);
-               dispatch(addProduct({...product, quantity:1}))
-           }}/>
+           onPress={() => handleAddProduct()}/>
       </View>
          {showModal && (
             <ModalCustom
