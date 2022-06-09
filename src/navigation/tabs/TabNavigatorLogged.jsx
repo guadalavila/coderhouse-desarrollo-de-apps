@@ -7,6 +7,7 @@ import ShopStack from '../stacks/shop';
 import CartStack from '../stacks/cart';
 import OrdersStack from '../stacks/orders';
 import { Colors } from '../../utils/colors';
+import AdressStack from '../stacks/adress';
 
 const BottomTabs = createBottomTabNavigator()
 
@@ -61,6 +62,20 @@ const TabNavigatorLogged = () => {
           }
         }}
       />
+       <BottomTabs.Screen
+        name="AdressTab"
+        component={AdressStack}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={styles.item}>
+                <Entypo name="location" size={24} color={focused ? Colors.primary : "black"} />
+                <Text style={styles.text}>Direcciones</Text>
+              </View>
+            )
+          }
+        }}
+      />
     </BottomTabs.Navigator>
   )
 }
@@ -69,15 +84,7 @@ export default TabNavigatorLogged
 
 const styles = StyleSheet.create({
     tabBar: {
-        shadowColor: Colors.greyLight,
-        shadowOffset: { width: 0, height: 10 },
-        shadowOpacity: 0.25,
         shadowRadius: 0.25,
-        elevation: 5,
-        position: "absolute",
-        bottom: 25,
-        left: 20,
-        right: 20,
         borderRadius: 15,
         height: 90,
       },

@@ -1,7 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Colors } from '../../../utils/colors';
 import CartScreen from '../../../screens/CartScreen';
 import { customTabHeader } from '../../../utils/styles';
 
@@ -23,5 +21,3 @@ const CartStack = () => {
 }
 
 export default CartStack
-
-const styles = StyleSheet.create({})

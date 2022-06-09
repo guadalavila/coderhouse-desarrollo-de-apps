@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   bottom:{
     position:'absolute',
-    bottom: 120,
+    bottom: 20,
     right:'25%'
   } 
 })

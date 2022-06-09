@@ -1,5 +1,4 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { customHeader, customTabHeader } from '../../../utils/styles';
 import DashboardScreen from '../../../screens/DashboardScreen';
@@ -19,5 +18,3 @@ const ShopStack = () => {
 }
 
 export default ShopStack
-
-const styles = StyleSheet.create({})

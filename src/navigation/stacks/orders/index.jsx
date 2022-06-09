@@ -1,8 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Colors } from '../../../utils/colors';
-import CartScreen from '../../../screens/CartScreen';
 import OrdersScreen from '../../../screens/OrdersScreen';
 import { customTabHeader } from '../../../utils/styles';
 
@@ -24,5 +21,3 @@ const OrdersStack = () => {
 }
 
 export default OrdersStack
-
-const styles = StyleSheet.create({})
