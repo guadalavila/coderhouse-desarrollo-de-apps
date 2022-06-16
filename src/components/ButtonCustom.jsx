@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const ButtonCustom = ({ label, onPress, disabled,color }) => {
+const ButtonCustom = ({ label, onPress, disabled = false ,color = "#000" }) => {
     return (
         <TouchableOpacity
             disabled={disabled}
@@ -18,8 +18,7 @@ export default ButtonCustom;
 
 const styles = StyleSheet.create({
     button: {
-        width: Dimensions.get("screen").width * 0.5,
-        // backgroundColor: "#000",
+        width: Dimensions.get("screen").width * 0.7,
         alignSelf: "center",
         paddingVertical: 20,
         borderRadius: 40,
@@ -28,6 +27,7 @@ const styles = StyleSheet.create({
     },
     textButton: {
         fontWeight: "700",
+        fontSize: 18,
         color: "white",
     },
     disabled: {
