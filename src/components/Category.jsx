@@ -25,7 +25,7 @@ export default Category;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: Colors.greyLight,
-        height: 200,
+        height: 160,
         margin: 20,
         width: Dimensions.get("screen").width * 0.4,
         borderRadius: 10,

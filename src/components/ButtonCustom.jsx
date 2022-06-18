@@ -1,7 +1,8 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
+import { Colors } from "../utils/colors";
 
-const ButtonCustom = ({ label, onPress, disabled = false ,color = "#000" }) => {
+const ButtonCustom = ({ label, onPress, disabled = false , loading = false, color = "#000" }) => {
     return (
         <TouchableOpacity
             disabled={disabled}
@@ -9,7 +10,14 @@ const ButtonCustom = ({ label, onPress, disabled = false ,color = "#000" }) => {
             onPress={onPress}
             style={[styles.button, disabled ? styles.disabled : {}, color? {backgroundColor: color} : {backgroundColor:'#000'}]}
         >
-            <Text style={styles.textButton}>{label}</Text>
+            <View>
+                {loading ?
+                    <ActivityIndicator size={'large'} color={Colors.primary} /> 
+                    :
+                    <Text style={[styles.textButton]}>{label}</Text>
+                }
+            </View>
+            
         </TouchableOpacity>
     );
 };

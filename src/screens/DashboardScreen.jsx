@@ -26,7 +26,7 @@ const DashboardScreen = ({navigation}) => {
                         onPress={() => {
                             dispatch(selectCategory(item.item.id));
                             dispatch(setProductsByCategory(item.item.id));
-                            navigation.navigate(SCREENS.Detail.name)
+                            navigation.navigate('DetailCategoryScreen')
                         }}
                     />
                 )}

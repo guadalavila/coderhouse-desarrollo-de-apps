@@ -3,32 +3,38 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ButtonCustom from "../components/ButtonCustom";
 import Input from "../components/Input";
 import Modal from "../components/Modal";
-import Loading from "../components/Loading";
 import { Colors } from "../utils/colors";
 import { useDispatch } from 'react-redux'
 import { signUp } from "../features/auth";
 
-const SignUpScreen = ({navigation}) => {
+const SignInScreen = ({navigation}) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
     const [showModal, setShowModal] = useState(false)
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
 
     const handleSignup = () => {
-        if(email === "" || password === ""){
-            setShowModal(true);
+        if(email === "" || password === "" || passwordConfirm === ""){
             setError('Debes completar todos los datos');
+            setShowModal(true);
             return;
         }
-        if(password.length < 6){
-            setShowModal(true);
+        if(password.length < 6 || passwordConfirm.length < 6 ){
             setError('La contraseña debe tener como mínimo 6 caracteres');
+            setShowModal(true);
+            return;
         }
-        setLoading(true);
-        dispatch(signUp({ email: email, password: password }))
+        if(password !== passwordConfirm){
+            setError('Las contraseña y la confirmación deben ser iguales');
+            setShowModal(true);
+            return;
+        }
+        // setLoading(true);
+        dispatch(signUp({email, password}))
 
     } 
  
@@ -38,13 +44,19 @@ const SignUpScreen = ({navigation}) => {
             <Input
                 label={"E-mail"}
                 value={email}
-                onChangeText={(value) => setEmail(value)}
+                onChangeText={(value) => setEmail(value.replace(" ", ""))}
             />
             <Input
-                label={"Password"}
+                label={"Contraseña"}
                 value={password}
                 password
-                onChangeText={(value) => setPassword(value)}
+                onChangeText={(value) => setPassword(value.replace(" ", ""))}
+            />
+                <Input
+                label={"Repetir Contraseña"}
+                value={passwordConfirm}
+                password
+                onChangeText={(value) => setPasswordConfirm(value.replace(" ", ""))}
             />
         </View>
         <View style={styles.containerButton}>
@@ -63,7 +75,7 @@ const SignUpScreen = ({navigation}) => {
   )
 }
 
-export default SignUpScreen
+export default SignInScreen
 
 const styles = StyleSheet.create({
     container: {

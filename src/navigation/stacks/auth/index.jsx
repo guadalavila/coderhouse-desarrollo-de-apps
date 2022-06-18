@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CartScreen from '../../../screens/CartScreen';
 import { customTabHeader } from '../../../utils/styles';
 import LoginScreen from '../../../screens/LoginScreen';
-import SignUpScreen from '../../../screens/SignUpScreen';
+import SignInScreen from '../../../screens/SignInScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,17 +14,17 @@ const AuthStack = () => {
       <Stack.Screen
           name= "LoginScreen"
           component={LoginScreen}
-          options={{title: "LOGIN"}}
+          options={{title: ""}}
         >
         </Stack.Screen> 
         <Stack.Screen
-          name= "SignUpScreen"
-          component={SignUpScreen}
-          options={{title: "REGISTRARSE"}}
+          name= "SignInScreen"
+          component={SignInScreen}
+          options={{title: "REGISTRATE"}}
         >
         </Stack.Screen> 
     </Stack.Navigator>
   )
 }
 
-export default AuthStack
+export default AuthStack;

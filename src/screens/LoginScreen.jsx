@@ -1,58 +1,85 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ButtonCustom from "../components/ButtonCustom";
 import Input from "../components/Input";
 import Modal from "../components/Modal";
-import { useDispatch } from 'react-redux'
-import { login } from "../features/auth";
+import { useDispatch, useSelector } from 'react-redux'
+import { login, resetDataUser } from "../features/auth";
 import Loading from "../components/Loading";
 import { Colors } from "../utils/colors";
-// import { validateEmail, validatePassword } from "../utils/validates";
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [showModal, setShowModal] = useState(false)
-    const dispatch = useDispatch()
+    const [showModal, setShowModal] = useState(false);
+    const [errorLogin, setErrorLogin] = useState('');
+    const dispatch = useDispatch();
+    const {error, loading} = useSelector(state => state.auth.value);
 
-   
-    const handleLogin = () => {
-        if(email === "" || password === ""){
+    useEffect(() => {
+        if(error === "EMAIL_NOT_FOUND"){
+            setErrorLogin('Para ingresar debes crearte una cuenta');
+            setShowModal(true);
+            return;
+        }else if(error === "INVALID_PASSWORD"){
+            setErrorLogin('Contraseña incorrecta');
             setShowModal(true);
             return;
         }
-        dispatch(login({ email: email, password: password }));
+    }, [error, loading])
+
+    const closeModal = () => {
+        setShowModal(false);
+        dispatch(resetDataUser());
+    }
+   
+    const handleLogin = () => {
+        if(email === "" || password === ""){
+            setErrorLogin('Debes completar todos los datos');
+            setShowModal(true);
+            return;
+        }
+        if(password.length < 6 ){
+            setErrorLogin('La contraseña debe tener como mínimo 6 caracteres');
+            setShowModal(true);
+            return;
+        }
+        dispatch(login({email, password}));
     } 
  
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={{backgroundColor: '#fff'}}>
+            <View style={styles.container}>
             <View >
+                <Image resizeMode='center' style={{ width: 200, height: 200, alignSelf:'center' }} source={require('../../assets/images/login.png')} />
                 <Input
                     label={"E-mail"}
                     value={email}
-                    onChangeText={(value) => setEmail(value)}
+                    onChangeText={(value) => setEmail(value.replace(" ", ""))}
                 />
                 <Input
-                    label={"Password"}
+                    label={"Contraseña"}
                     value={password}
                     password
-                    onChangeText={(value) => setPassword(value)}
+                    onChangeText={(value) => setPassword(value.replace(" ", ""))}
                 />
             </View>
             <View style={styles.containerButton}>
                 <ButtonCustom
+                    loading={loading}
                     label={"Ingresar"}
                     onPress={handleLogin}
                 />
-                <TouchableOpacity style={styles.outline} activeOpacity={0.7} onPress={() =>navigation.navigate('SignUpScreen')}>
+                <TouchableOpacity style={styles.outline} activeOpacity={0.7} onPress={() =>navigation.navigate('SignInScreen')}>
                     <Text style={styles.textButton}>Registrarse</Text>
                 </TouchableOpacity>
             </View>
             {
-                showModal && <Modal title={"Login"} message={"Debes completar todos los datos"} onCancel={() => setShowModal(!showModal)} />
+                showModal && <Modal title={"Login"} message={errorLogin} onCancel={() => closeModal()} />
             }
-        </View>
+            </View>
+        </ScrollView>
     );
 };
 

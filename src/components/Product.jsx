@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:10,
         flexDirection:'row',
         shadowColor: "#000",
+        borderRadius: 10,
         shadowOffset: {
             width: 0,
             height: 2,

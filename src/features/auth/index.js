@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AUTH_SIGNUP } from "../../constants/firebase";
+import { AUTH_LOGIN, AUTH_SIGNUP } from "../../constants/firebase";
 
 const initialState = {
     value: {
@@ -15,19 +15,22 @@ const initialState = {
 
 export const signUp = createAsyncThunk(
     'auth/signUp',
-    async (emailAndPassword, asyncThunk) => {
+    async (data, asyncThunk) => {
+        console.log({data})
+        const {email,password} = data
         try {
            const res = await fetch (`${AUTH_SIGNUP}`, {
                method: 'POST',
                body: JSON.stringify({
-                   email: emailAndPassword.email,
-                   password: emailAndPassword.password,
+                   email: email,
+                   password: password,
                    returnSecureToken: true,
                })
            });
-           const data = await res.json()
+           const data = await res.json();
+           console.log("Data que responde")
            console.log(data);
-           return data
+           return data;
         } catch (error) {
             return rejectWithValue('Opps there seems to be an error')
         }
@@ -36,21 +39,19 @@ export const signUp = createAsyncThunk(
 
 export const login = createAsyncThunk(
     'auth/login',
-    async (emailAndPassword, asyncThunk) => {
-        console.log(emailAndPassword);
-        // console.log(asyncThunk.getState());
+    async (data, asyncThunk) => {
+        const {email, password} = data;
         try {
            const res = await fetch (`${AUTH_LOGIN}`, {
                method: 'POST',
                body: JSON.stringify({
-                   email: emailAndPassword.email,
-                   password: emailAndPassword.password,
+                   email: email,
+                   password: password,
                    returnSecureToken: true,
                })
            });
-           const data = await res.json()
-           console.log(data);
-           return data
+           const data = await res.json();
+           return data;
         } catch (error) {
             return rejectWithValue('Opps there seems to be an error')
         }
@@ -63,6 +64,10 @@ export const authSlice = createSlice({
     reducers: {
         logout: (state, _) => {
             state.value = initialState.value
+        },
+        resetDataUser: (state, _)=>{
+            state.value = initialState.value
+
         }
     },
     extraReducers: {
@@ -75,7 +80,6 @@ export const authSlice = createSlice({
                 state.value.error = payload.error.message
             }
             state.value.loading = false
-            
             state.value.user.userId = payload.localId
             state.value.user.email = payload.email
             state.value.user.token = payload.idToken
@@ -90,9 +94,8 @@ export const authSlice = createSlice({
         [login.fulfilled]: (state, {payload}) => {
             state.value.loading = false
             if (payload.error) {
-                state.value.error = payload.error.message
+                state.value.error = payload.error.message;
             }
-            
             state.value.user.userId = payload.localId
             state.value.user.email = payload.email
             state.value.user.token = payload.idToken
@@ -104,5 +107,5 @@ export const authSlice = createSlice({
     }
 })
 
-export const {logout} = authSlice.actions;
+export const {logout, resetDataUser} = authSlice.actions;
 export default authSlice.reducer;
