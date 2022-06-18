@@ -11,7 +11,7 @@ const NewAdressScreen = () => {
     const dispatch = useDispatch();
     const [adress, setAdress] = useState({
         currentAdress: '',
-        image: undefined
+        image: undefined,
     })
     const { getPermissionCamera, launchCamera, launchGallery } = useCamera()
 
@@ -28,7 +28,7 @@ const NewAdressScreen = () => {
     }
 
     const addNewAddress = () => {
-        dispatch(addAddress(adress))
+        dispatch(addAddress({...adress, id: Date.now()}))
     }
 
     return (
@@ -36,7 +36,7 @@ const NewAdressScreen = () => {
             <TextInput
                 style={styles.input}
                 placeholder="Ingresá la dirección"
-                onChangeText={(text) => setAdress({...adress, currentAdress: text.replace(" ", "")})}
+                onChangeText={(text) => setAdress({...adress, currentAdress: text})}
             />
             {adress?.image &&
             <>

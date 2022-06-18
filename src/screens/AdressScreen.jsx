@@ -15,7 +15,7 @@ const AdressScreen = () => {
               <FlatList
                   style={{height: Dimensions.get('screen').height * 0.5}}
                   data={address}
-                  renderItem={(item) => <AddressItem key={item.item.currentAdress} item={item.item} />}
+                  renderItem={(item) => <AddressItem key={item.item.id} item={item.item} />}
                   keyExtractor={(item) => item.id}
               />
             ) : (

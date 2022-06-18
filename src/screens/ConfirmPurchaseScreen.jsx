@@ -7,7 +7,7 @@ import useTotalCart from '../hooks/useTotalCart';
 import { Colors } from '../utils/colors';
 
 const ConfirmPurchaseScreen = () => {
-    const [addressSelect, setAddressSelect] = useState('');
+    const [addressSelect, setAddressSelect] = useState(undefined);
     const { address } = useSelector((state) => state.address.value);
     const { getTotal } = useTotalCart()
 
@@ -20,8 +20,8 @@ const ConfirmPurchaseScreen = () => {
                     data={address}
                     renderItem={(item) => (
                         <AddressItemSelector
-                            isSelect={item.item.currentAdress === addressSelect}
-                            key={item.item.currentAdress}
+                            isSelect={item.item.id === addressSelect}
+                            key={item.item.id}
                             item={item.item}
                             callback={(address_) => setAddressSelect(address_)}
                         />
@@ -34,7 +34,7 @@ const ConfirmPurchaseScreen = () => {
                 <Text style={styles.total}>$ {getTotal()}</Text>
             </View>
              {
-               addressSelect !== '' && <ButtonCustom label={"PAGAR"} onPress={() => console.log("")}/>
+               addressSelect && <ButtonCustom label={"PAGAR"} onPress={() => console.log("")}/>
              }
         </View>
     );
