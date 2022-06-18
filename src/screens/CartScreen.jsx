@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import ButtonCustom from '../components/ButtonCustom';
 import ItemCart from '../components/ItemCart';
 import Loading from '../components/Loading';
+import Modal from '../components/Modal';
 import { Colors } from '../utils/colors';
 
-const CartScreen = () => {
+const CartScreen = ({navigation}) => {
     const { cart } = useSelector((state) => state.cart.value);
+    const { address } = useSelector((state) => state.address.value);
+
+    const [showModal, setShowModal] = useState(false);
 
     const getTotal = () => {
         let value = 0;
@@ -18,6 +22,14 @@ const CartScreen = () => {
         }
         return value;
     };
+
+    const goToConfirmPurchase = () => {
+        if(address.length === 0){
+            setShowModal(true);
+        }else{
+            navigation.navigate('ConfirmPurchaseScreen')
+        }
+    }
 
     if (!cart) {
         return <Loading />;
@@ -35,9 +47,9 @@ const CartScreen = () => {
                     />
                     <View style={styles.containerSummary}>
                         <Text style={styles.totalText}>{`Total:  $${getTotal()}`}</Text>
-                        <ButtonCustom label={"Finalizar compra"} onPress={() => {}} />
+                        <ButtonCustom label={"Finalizar compra"} onPress={() => goToConfirmPurchase()} />
                     </View>
-                        
+                    {showModal && <Modal title={'Mensaje!'} message={"Para poder continuar, debes agregar una dirección en la sección Direcciones"} onCancel={() => setShowModal(false)} />}
                 </View>
             ) : (
                 <View style={styles.emptyState}>

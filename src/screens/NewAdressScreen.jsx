@@ -4,31 +4,31 @@ import ButtonCustom from "../components/ButtonCustom";
 import useCamera from "../hooks/useCamera";
 import { Colors } from "../utils/colors";
 import { Entypo } from '@expo/vector-icons';
+import { useDispatch } from "react-redux";
+import { addAddress } from "../features/address";
 
 const NewAdressScreen = () => {
+    const dispatch = useDispatch();
     const [adress, setAdress] = useState({
         currentAdress: '',
         image: undefined
     })
     const { getPermissionCamera, launchCamera, launchGallery } = useCamera()
 
-    useEffect(() => {
-      console.log({adress})
-    }, [adress])
-    
-
     const openCamera = async () =>{
         const havePermission = await getPermissionCamera()
         // if(!havePermission) return;
         const image= await launchCamera();
-        console.log({image})
         setAdress({...adress, image: image})
     }
 
     const selectImageFromGallery = async () =>{
         const image= await launchGallery();
-        console.log(image)
         setAdress({...adress, image: image})
+    }
+
+    const addNewAddress = () => {
+        dispatch(addAddress(adress))
     }
 
     return (
@@ -36,7 +36,7 @@ const NewAdressScreen = () => {
             <TextInput
                 style={styles.input}
                 placeholder="Ingresá la dirección"
-                onChangeText={(text) => setAdress({...adress, currentAdress: text})}
+                onChangeText={(text) => setAdress({...adress, currentAdress: text.replace(" ", "")})}
             />
             {adress?.image &&
             <>
@@ -54,7 +54,7 @@ const NewAdressScreen = () => {
             <ButtonCustom disabled={adress.image} label={"SELECCIONAR IMAGEN"} onPress={() => selectImageFromGallery() } />
             <ButtonCustom label={"OBTENER UBICACIÓN"} onPress={() =>{}} />
             <View style={styles.containerButton}>
-                <ButtonCustom disabled={!adress.image || adress.currentAdress === ''} color={Colors.primary} label={"CONFIRMAR"} onPress={() =>{}} />
+                <ButtonCustom disabled={!adress.image || adress.currentAdress === ''} color={Colors.primary} label={"CONFIRMAR"} onPress={() => addNewAddress()} />
             </View>
         </ScrollView>
     );

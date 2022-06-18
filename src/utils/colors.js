@@ -6,6 +6,7 @@ export const Colors= {
     greyLight: '#E5E5E5',
     greyLightSecondary: '#F9F9F9',
     danger:'#E9250E',
-    success:'#43B60C'
+    success:'#43B60C',
+    black: '#000000'
 }
 

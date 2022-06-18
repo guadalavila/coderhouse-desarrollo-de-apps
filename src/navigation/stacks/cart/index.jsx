@@ -6,6 +6,7 @@ import { Entypo } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeCart } from '../../../features/cart';
 import { TouchableOpacity } from 'react-native';
+import ConfirmPurchaseScreen from '../../../screens/ConfirmPurchaseScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,8 +27,11 @@ const CartStack = () => {
           )
         }}
         >
-        </Stack.Screen> 
-    
+        </Stack.Screen>
+        <Stack.Screen
+          name= "ConfirmPurchaseScreen"
+          component={ConfirmPurchaseScreen}
+          options={{title: "Confirmar Compra"}} />
     </Stack.Navigator>
   )
 }
