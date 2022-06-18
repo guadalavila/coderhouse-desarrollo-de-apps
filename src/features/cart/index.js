@@ -13,7 +13,6 @@ export const cartSlice = createSlice({
     reducers: {
         addProduct: (state, action) =>{
             const productExist = state.value.cart.find(product => product.id === action.payload.id)
-            console.log(productExist);
             if (productExist) {
                 state.value.cart.map(item => {
                     if (item.id === action.payload.id) item.quantity++

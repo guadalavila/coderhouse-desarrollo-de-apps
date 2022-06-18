@@ -7,8 +7,6 @@ import AddressItem from '../components/AddressItem';
 const AdressScreen = () => {
     const { address } = useSelector((state) => state.address.value);
 
-    console.log({ address });
-
     return (
         <View style={styles.container}>
             {address && address.length > 0 ? (

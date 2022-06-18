@@ -16,7 +16,6 @@ const initialState = {
 export const signUp = createAsyncThunk(
     'auth/signUp',
     async (data, asyncThunk) => {
-        console.log({data})
         const {email,password} = data
         try {
            const res = await fetch (`${AUTH_SIGNUP}`, {
@@ -28,8 +27,6 @@ export const signUp = createAsyncThunk(
                })
            });
            const data = await res.json();
-           console.log("Data que responde")
-           console.log(data);
            return data;
         } catch (error) {
             return rejectWithValue('Opps there seems to be an error')
@@ -75,7 +72,6 @@ export const authSlice = createSlice({
             state.value.loading = true
         },
         [signUp.fulfilled]: (state, {payload}) => {
-            console.log(payload)
             if (payload.error) {
                 state.value.error = payload.error.message
             }

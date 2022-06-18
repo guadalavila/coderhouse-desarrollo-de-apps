@@ -4,7 +4,6 @@ function useCamera(){
 
     const getPermissionCamera = async () => {
         const { status } = await ImagePicker.getCameraPermissionsAsync()
-        console.log(status);
         if (status !== 'granted') {
           return false
         }

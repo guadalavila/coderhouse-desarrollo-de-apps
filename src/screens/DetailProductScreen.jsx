@@ -19,27 +19,10 @@ const DetailProductScreen = ({ route }) => {
         setLoading(false);
     }, []);
 
-    useEffect(() => {
-        console.log("------------")
-        console.log({cart})
-        console.log("------------")
-
-    }, [cart])
-    
 
     const handleAddProduct = () => {
-        console.log({cart})
-        // const product_ = cart.find((x) => x.id === product.id);
-        // console.log({ product_ });
         setShowModal(true);
         dispatch(addProduct(product))
-     
-        // if  (modifyQuantity) {
-        //     // dispatch(addProduct({...product, quantity:1 }))
-        //     return;
-        // }  else  {
-        //     dispatch(addProduct({ ...product, quantity: 1 }));;
-        // }
     };
 
     if  (loading) {
