@@ -3,12 +3,12 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../utils/colors'
 import { Entypo } from '@expo/vector-icons';
 
-const AddressItemSelector = ({ item: { currentAdress, image, id }, isSelect, callback }) => {
+const AddressItemSelector = ({ item: { address, image, id }, isSelect, callback }) => {
   return (
     <TouchableOpacity activeOpacity={0.7} style={styles.container} onPress={() => callback(id) }>
         <View style={styles.flexRow}>
             <Image style={styles.image} source={{uri: image}} />
-            <Text style={styles.textStyle}>{currentAdress}</Text>
+            <Text style={styles.textStyle}>{address}</Text>
         </View>
         <View style={styles.selectButton}>
             {isSelect &&<Entypo name="check" size={24} color={Colors.success} />}
