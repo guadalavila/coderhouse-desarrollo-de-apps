@@ -5,15 +5,17 @@ import useCamera from "../hooks/useCamera";
 import { Colors } from "../utils/colors";
 import { Entypo } from '@expo/vector-icons';
 import { useDispatch } from "react-redux";
-import { addAddress } from "../features/address";
+import { addAddress, addAddressDB } from "../features/address";
+import Modal from "../components/Modal";
 
-const NewAdressScreen = () => {
+const NewAdressScreen = ({navigation}) => {
     const dispatch = useDispatch();
     const [adress, setAdress] = useState({
         currentAdress: '',
         image: undefined,
     })
-    const { getPermissionCamera, launchCamera, launchGallery } = useCamera()
+    const [showModal, setShowModal] = useState(false);
+    const { getPermissionCamera, launchCamera, launchGallery } = useCamera();
 
     const openCamera = async () =>{
         const havePermission = await getPermissionCamera()
@@ -28,7 +30,9 @@ const NewAdressScreen = () => {
     }
 
     const addNewAddress = () => {
-        dispatch(addAddress({...adress, id: Date.now()}))
+        dispatch(addAddressDB({id:Date.now(), address: adress.currentAdress, image: adress.image}))
+        dispatch(addAddress({id:Date.now(), address: adress.currentAdress, image: adress.image}))
+        setShowModal(true);
     }
 
     return (
@@ -56,6 +60,7 @@ const NewAdressScreen = () => {
             <View style={styles.containerButton}>
                 <ButtonCustom disabled={!adress.image || adress.currentAdress === ''} color={Colors.primary} label={"CONFIRMAR"} onPress={() => addNewAddress()} />
             </View>
+            {showModal && <Modal title={"Direcciones"} message={"Dirección agregada correctamente!"} onCancel={() => navigation.goBack()} />}
         </ScrollView>
     );
 };

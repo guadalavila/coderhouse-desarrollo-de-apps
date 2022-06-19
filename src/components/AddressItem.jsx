@@ -2,12 +2,12 @@ import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { Colors } from '../utils/colors'
 
-const AddressItem = ({ item: { currentAdress, image } }) => {
+const AddressItem = ({ item: { address, image } }) => {
   return (
     <View style={styles.container}>
         <View style={styles.flexRow}>
             <Image style={styles.image} source={{uri: image}} />
-            <Text style={styles.textStyle}>{currentAdress}</Text>
+            <Text style={styles.textStyle}>{address}</Text>
         </View>
     </View>
   )

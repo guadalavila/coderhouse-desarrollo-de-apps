@@ -1,11 +1,18 @@
+import React, { useEffect } from 'react';
 import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
 import { Colors } from '../utils/colors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AddressItem from '../components/AddressItem';
+import { getAllAddress } from '../features/address';
 
 const AdressScreen = () => {
-    const { address } = useSelector((state) => state.address.value);
+    const dispatch = useDispatch();
+    const { address, loading } = useSelector((state) => state.address.value);
+
+    useEffect(() => {
+        dispatch(getAllAddress())
+        console.log({address})
+      }, [])
 
     return (
         <View style={styles.container}>
