@@ -2,17 +2,22 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import ItemOrder from '../components/ItemOrder';
+import Loading from '../components/Loading';
 import {  getOrders } from '../features/orders';
 import { ORDERS } from '../mock/orders';
 import { Colors } from '../utils/colors';
 
 const OrdersScreen = () => {
     const dispatch = useDispatch();
-    const { orders } = useSelector((state) => state.orders.value);
+    const { orders, loading } = useSelector((state) => state.orders.value);
 
     useEffect(() => {
       dispatch(getOrders())
     }, [])
+
+    if(loading){
+        return <Loading/>
+    }
     
     return (
         <View style={styles.container}>

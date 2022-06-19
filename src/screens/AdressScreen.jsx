@@ -4,6 +4,7 @@ import { Colors } from '../utils/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import AddressItem from '../components/AddressItem';
 import { getAllAddress } from '../features/address';
+import Loading from '../components/Loading';
 
 const AdressScreen = () => {
     const dispatch = useDispatch();
@@ -13,6 +14,9 @@ const AdressScreen = () => {
         dispatch(getAllAddress())
       }, [])
 
+    if(loading){
+        return <Loading />
+    }
     return (
         <View style={styles.container}>
             {address && address.length > 0 ? (
