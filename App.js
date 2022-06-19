@@ -4,6 +4,13 @@ import { useFonts } from 'expo-font';
 import Loading from './src/components/Loading';
 import { Provider } from 'react-redux';
 import store from './src/store';
+import { init } from './src/db';
+
+init().then(()=> {
+  console.log('DB ok');
+}).catch((err)=> {
+  console.log(err.message);
+});
 
 function App() {
 

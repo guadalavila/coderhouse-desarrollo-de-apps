@@ -5,7 +5,6 @@ import Category from "../components/Category";
 import Loading from "../components/Loading";
 import { selectCategory } from "../features/categories";
 import { setProductsByCategory } from "../features/products";
-import { SCREENS } from "../utils/screens";
 
 const DashboardScreen = ({navigation}) => {
     const { categories } = useSelector(state => state.categories.value)
