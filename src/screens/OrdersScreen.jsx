@@ -14,9 +14,6 @@ const OrdersScreen = () => {
       dispatch(getOrders())
     }, [])
     
-
-    console.log(orders)
-
     return (
         <View style={styles.container}>
             {orders && orders.length > 0 ? (

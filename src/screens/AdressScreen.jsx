@@ -11,7 +11,6 @@ const AdressScreen = () => {
 
     useEffect(() => {
         dispatch(getAllAddress())
-        console.log({address})
       }, [])
 
     return (

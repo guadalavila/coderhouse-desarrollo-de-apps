@@ -10,7 +10,6 @@ export const init = () => {
                     resolve();
                 },
                 (_, error) => {
-                    console.log(error.message);
                     reject(error)
                 }
             )

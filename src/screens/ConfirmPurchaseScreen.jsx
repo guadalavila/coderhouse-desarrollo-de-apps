@@ -20,8 +20,6 @@ const ConfirmPurchaseScreen = ({navigation}) => {
     useEffect(() => {
         if(response?.name && !loading){
             setOrderConfirm(true);
-            console.log("se realizo la compre con id: "+ response?.name)
-
         }
     }, [response])
 
