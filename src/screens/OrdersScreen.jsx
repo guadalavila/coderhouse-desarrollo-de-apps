@@ -7,7 +7,7 @@ import { ORDERS } from '../mock/orders';
 import { Colors } from '../utils/colors';
 
 const OrdersScreen = () => {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const { orders } = useSelector((state) => state.orders.value);
 
     useEffect(() => {

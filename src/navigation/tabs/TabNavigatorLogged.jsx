@@ -17,13 +17,14 @@ const TabNavigatorLogged = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: styles.tabBar
+        tabBarStyle: styles.tabBar,
       }}
     >
       <BottomTabs.Screen
         name="ShopTab"
         component={ShopStack}
         options={{
+          unmountOnBlur: false,
           tabBarIcon: ({ focused }) => {
             return (
               <View style={styles.item}>
@@ -38,6 +39,7 @@ const TabNavigatorLogged = () => {
         name="CartTab"
         component={CartStack}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: ({ focused }) => {
             return (
               <View style={styles.item}>
@@ -52,6 +54,7 @@ const TabNavigatorLogged = () => {
         name="OrdersTab"
         component={OrdersStack}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: ({ focused }) => {
             return (
               <View style={styles.item}>
@@ -66,6 +69,7 @@ const TabNavigatorLogged = () => {
         name="AdressTab"
         component={AdressStack}
         options={{
+          unmountOnBlur: false,
           tabBarIcon: ({ focused }) => {
             return (
               <View style={styles.item}>
