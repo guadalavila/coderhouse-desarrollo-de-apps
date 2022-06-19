@@ -5,23 +5,16 @@ import ButtonCustom from '../components/ButtonCustom';
 import ItemCart from '../components/ItemCart';
 import Loading from '../components/Loading';
 import Modal from '../components/Modal';
+import useTotalCart from '../hooks/useTotalCart';
 import { Colors } from '../utils/colors';
 
 const CartScreen = ({navigation}) => {
     const { cart } = useSelector((state) => state.cart.value);
     const { address } = useSelector((state) => state.address.value);
-
     const [showModal, setShowModal] = useState(false);
+    const { getTotal } = useTotalCart()
 
-    const getTotal = () => {
-        let value = 0;
-        if (cart) {
-            cart.forEach((element) => {
-                value = value + element.price * element.quantity;
-            });
-        }
-        return value;
-    };
+
 
     const goToConfirmPurchase = () => {
         if(address.length === 0){

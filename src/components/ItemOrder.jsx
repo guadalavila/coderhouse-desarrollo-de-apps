@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../utils/colors'
 
 const formatDay = (time) => {
@@ -7,11 +7,33 @@ const formatDay = (time) => {
     return date.toLocaleDateString();
 }
 
-const ItemOrder = ({item: {id, total,date}}) => {
+const ItemOrder = ({item: {date, items}}) => {
+    const [showDetail, setShowDetail] = useState(false);
   return (
     <View style={styles.item}>
-        <Text>{formatDay(date)}</Text>
-        <Text style={styles.textTotal}>${total}</Text>
+        <View>
+            <Text>{date}</Text>
+            <Text style={styles.textTotal}>TOTAL ${items.total}</Text>
+            {showDetail &&
+                <View>
+                <Text>***************************</Text>
+                {items.cart.map(({ description, id, price, quantity }) => (
+                    <View key={id} style={styles.containerItem}>
+                        <Text>{description}</Text>
+                        <Text style={{marginBottom:20}}>{quantity} x {price}</Text>
+                    </View>
+                ))}
+                </View>
+            }
+        </View>
+        <View style={styles.containerDetail}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => setShowDetail(!showDetail)}>
+                {!showDetail ? 
+                    <Text style={styles.buttonDetail}>Ver detalle</Text> :
+                    <Text style={styles.buttonDetail}>Ocultar detalle</Text>
+                }
+            </TouchableOpacity>
+        </View>
     </View>
   )
 }
@@ -33,11 +55,24 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        flexDirection: 'row',
+        justifyContent:'space-between'
     },
     textTotal:{
         marginTop:10,
         fontWeight:'bold',
         fontSize:16
-
+    },
+    containerDetail:{
+        alignSelf: 'center'
+    },
+    buttonDetail:{
+        color: Colors.green,
+        textDecorationLine: 'underline'
+    },
+    containerItem:{
+        borderBottomColor: Colors.greyLight,
+        borderBottomWidth:2,
+        width: Dimensions.get('screen').width * 0.5,
     }
 })

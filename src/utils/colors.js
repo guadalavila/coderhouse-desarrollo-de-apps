@@ -7,6 +7,7 @@ export const Colors= {
     greyLightSecondary: '#F9F9F9',
     danger:'#E9250E',
     success:'#43B60C',
-    black: '#000000'
+    black: '#000000',
+    green: '#068979'
 }
 

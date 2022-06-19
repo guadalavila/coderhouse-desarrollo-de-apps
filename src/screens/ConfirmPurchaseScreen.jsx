@@ -1,15 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AddressItemSelector from '../components/AddressItemSelector';
 import ButtonCustom from '../components/ButtonCustom';
 import useTotalCart from '../hooks/useTotalCart';
 import { Colors } from '../utils/colors';
+import { confirmPurchase, removeCart } from '../features/cart';
+import ConfirmPurchase from '../components/ConfirmPurchase';
 
-const ConfirmPurchaseScreen = () => {
+
+const ConfirmPurchaseScreen = ({navigation}) => {
     const [addressSelect, setAddressSelect] = useState(undefined);
+    const [orderConfirm, setOrderConfirm] = useState(false)
     const { address } = useSelector((state) => state.address.value);
-    const { getTotal } = useTotalCart()
+    const { cart, loading, response } = useSelector((state) => state.cart.value);
+    const { getTotal } = useTotalCart();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(response?.name && !loading){
+            setOrderConfirm(true);
+            console.log("se realizo la compre con id: "+ response?.name)
+
+        }
+    }, [response])
+
+    const resetCart = () => {
+        dispatch(removeCart())
+        navigation.goBack();
+    }
+    
+    const confirmPurchase_ = () => {
+        dispatch(confirmPurchase({cart: cart, total: getTotal()}))
+    }
 
     return (
         <View style={styles.container}>
@@ -33,9 +56,9 @@ const ConfirmPurchaseScreen = () => {
                 <Text style={styles.labelTotal}>Total: </Text>
                 <Text style={styles.total}>$ {getTotal()}</Text>
             </View>
-             {
-               addressSelect && <ButtonCustom label={"PAGAR"} onPress={() => console.log("")}/>
-             }
+             { addressSelect && <ButtonCustom loading={loading} label={"PAGAR"} onPress={() => confirmPurchase_()}/>}
+             { orderConfirm && <ConfirmPurchase id={response?.name} onConfirm={() => resetCart()} /> }
+           
         </View>
     );
 };

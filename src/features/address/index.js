@@ -14,14 +14,12 @@ const initialState = {
 export const addAddressDB = createAsyncThunk(
     'address/addToDB',
     async (data, asyncThunk) => {
-        console.log({data})
         try {
             const result = await insertAddress(
                 data.id,
                 data.address,
                 data.image,
             )
-            console.log("Add db result:");
             console.log(result.insertId);
             return `Record succesfully row with id: ${result.insertId}`
         } catch (error) {

@@ -1,27 +1,28 @@
-import React from "react";
-import { StyleSheet, Text, View, Modal as ModalRN, Pressable } from "react-native";
-import { Colors } from "../utils/colors";
+import React from 'react'
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Colors } from '../utils/colors'
 
-const Modal = ({ title, message, onCancel, confirm = false }) => {
-    return (
-        <ModalRN animationType="slide" transparent={true} visible={true}>
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>{title}</Text>
-                    <Text style={styles.message}>{message}</Text>
-                    <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={onCancel}
-                    >
-                        <Text style={styles.textStyle}>Cerrar</Text>
-                    </Pressable>
-                </View>
-            </View>
-        </ModalRN>
-    );
-};
+const ConfirmPurchase = ({id, onConfirm}) => {
+  return (
+    <Modal animationType="slide" transparent={true} visible={true}>
+    <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+            <Text style={styles.modalText}>Orden Confirmada!</Text>
+            <Text style={styles.message}>Número de orden generado: {id}</Text>
+            <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={onConfirm}
+            >
+                <Text style={styles.textStyle}>ACEPTAR</Text>
+            </Pressable>
+        </View>
+    </View>
+</Modal>
+  )
+}
 
-export default Modal;
+export default ConfirmPurchase
+
 
 const styles = StyleSheet.create({
     centeredView: {
