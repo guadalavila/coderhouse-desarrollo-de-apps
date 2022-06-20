@@ -34,8 +34,14 @@ const LoginScreen = ({navigation}) => {
     }
    
     const handleLogin = () => {
+        const reg = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
         if(email === "" || password === ""){
             setErrorLogin('Debes completar todos los datos');
+            setShowModal(true);
+            return;
+        }
+        if(!reg.test(email)){
+            setErrorLogin('Debes ingresar un email válido');
             setShowModal(true);
             return;
         }

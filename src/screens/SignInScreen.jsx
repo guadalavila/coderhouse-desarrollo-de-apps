@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ButtonCustom from "../components/ButtonCustom";
 import Input from "../components/Input";
 import Modal from "../components/Modal";
 import { Colors } from "../utils/colors";
-import { useDispatch } from 'react-redux'
-import { signUp } from "../features/auth";
+import { useDispatch, useSelector } from 'react-redux'
+import { resetDataUser, signUp } from "../features/auth";
 
 const SignInScreen = ({navigation}) => {
 
@@ -14,28 +14,45 @@ const SignInScreen = ({navigation}) => {
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [showModal, setShowModal] = useState(false)
     const dispatch = useDispatch()
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
+    const [errorSignIn, setErrorSignIn] = useState('')
+    const {error, loading} = useSelector(state => state.auth.value);
+
+    useEffect(() => {
+        if(error === "EMAIL_EXISTS"){
+            setErrorSignIn(`${email} ya se encuentra registrado.`);
+            setShowModal(true);
+            return;
+        }
+    }, [error, loading])
+
+    const closeModal = () => {
+        setShowModal(false);
+        dispatch(resetDataUser());
+    }
 
     const handleSignup = () => {
+        const reg = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
         if(email === "" || password === "" || passwordConfirm === ""){
-            setError('Debes completar todos los datos');
+            setErrorSignIn('Debes completar todos los datos');
+            setShowModal(true);
+            return;
+        }
+        if(!reg.test(email)){
+            setErrorSignIn('Debes ingresar un email válido');
             setShowModal(true);
             return;
         }
         if(password.length < 6 || passwordConfirm.length < 6 ){
-            setError('La contraseña debe tener como mínimo 6 caracteres');
+            setErrorSignIn('La contraseña debe tener como mínimo 6 caracteres');
             setShowModal(true);
             return;
         }
         if(password !== passwordConfirm){
-            setError('Las contraseña y la confirmación deben ser iguales');
+            setErrorSignIn('Las contraseña y la confirmación deben ser iguales');
             setShowModal(true);
             return;
         }
-        // setLoading(true);
         dispatch(signUp({email, password}))
-
     } 
  
   return (
@@ -63,13 +80,14 @@ const SignInScreen = ({navigation}) => {
             <ButtonCustom
                 label={"Registrarse"}
                 onPress={handleSignup}
+                loading={loading}
             />
             <TouchableOpacity style={styles.outline} activeOpacity={0.7} onPress={() =>navigation.goBack()}>
                 <Text style={styles.textButton}>Cancelar</Text>
             </TouchableOpacity>
         </View>
         {
-            showModal && <Modal title={"Registro"} message={error} onCancel={() => setShowModal(!showModal)} />
+            showModal && <Modal title={"Registro"} message={errorSignIn} onCancel={() => closeModal()} />
         }
     </View>
   )

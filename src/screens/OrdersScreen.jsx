@@ -16,7 +16,10 @@ const OrdersScreen = () => {
     }, [])
 
     if(loading){
-        return <Loading/>
+        return(
+        <View style={styles.container}>
+            <Loading/>
+        </View>)
     }
     
     return (

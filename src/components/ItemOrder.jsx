@@ -2,11 +2,6 @@ import React, { useState } from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../utils/colors'
 
-const formatDay = (time) => {
-    const date = new Date(time)
-    return date.toLocaleDateString();
-}
-
 const ItemOrder = ({item: {date, items}}) => {
     const [showDetail, setShowDetail] = useState(false);
   return (
@@ -16,7 +11,6 @@ const ItemOrder = ({item: {date, items}}) => {
             <Text style={styles.textTotal}>TOTAL ${items.total}</Text>
             {showDetail &&
                 <View>
-                <Text>***************************</Text>
                 {items.cart.map(({ description, id, price, quantity }) => (
                     <View key={id} style={styles.containerItem}>
                         <Text>{description}</Text>
@@ -71,8 +65,10 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline'
     },
     containerItem:{
-        borderBottomColor: Colors.greyLight,
-        borderBottomWidth:2,
-        width: Dimensions.get('screen').width * 0.5,
+        borderTopColor: Colors.primary,
+        borderTopWidth:2,
+        paddingTop:6,
+        marginTop:6,
+        width: Dimensions.get('screen').width * 0.4,
     }
 })
