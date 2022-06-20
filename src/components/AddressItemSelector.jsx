@@ -5,7 +5,7 @@ import { Entypo } from '@expo/vector-icons';
 
 const AddressItemSelector = ({ item: { address, image, id }, isSelect, callback }) => {
   return (
-    <TouchableOpacity activeOpacity={0.7} style={styles.container} onPress={() => callback(id) }>
+    <TouchableOpacity activeOpacity={0.7} style={styles.container} onPress={() => callback({address, id}) }>
         <View style={styles.flexRow}>
             <Image style={styles.image} source={{uri: image}} />
             <Text style={styles.textStyle}>{address}</Text>

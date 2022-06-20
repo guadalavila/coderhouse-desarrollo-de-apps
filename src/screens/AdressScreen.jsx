@@ -12,10 +12,14 @@ const AdressScreen = () => {
 
     useEffect(() => {
         dispatch(getAllAddress())
-      }, [])
+    }, [])
 
     if(loading){
-        return <Loading />
+        return (
+            <View style={styles.container}>
+                <Loading/>
+            </View>
+        )
     }
     return (
         <View style={styles.container}>

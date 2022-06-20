@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, ScrollView, Image, TouchableOpacity } from "react-native";
 import ButtonCustom from "../components/ButtonCustom";
 import useCamera from "../hooks/useCamera";
@@ -30,8 +30,8 @@ const NewAdressScreen = ({navigation}) => {
     }
 
     const addNewAddress = () => {
-        dispatch(addAddressDB({id:Date.now(), address: adress.currentAdress, image: adress.image}))
-        dispatch(addAddress({id:Date.now(), address: adress.currentAdress, image: adress.image}))
+        dispatch(addAddressDB({id:Date.now(), address: adress.currentAdress.toUpperCase(), image: adress.image}))
+        dispatch(addAddress({id:Date.now(), address: adress.currentAdress.toUpperCase(), image: adress.image}))
         setShowModal(true);
     }
 
@@ -49,14 +49,14 @@ const NewAdressScreen = ({navigation}) => {
                             <Entypo name="trash" size={24} color={"black"} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{alignItems:'center'}}>
-                        <Image source={{ uri: adress.image }} style={{ width: 200, height: 200, }} />
+                    <View style={{alignItems:'center', marginVertical:10}}>
+                        <Image source={{ uri: adress.image }} style={styles.image} />
                     </View>
             </>
             }
             <ButtonCustom disabled={adress.image} label={"TOMAR FOTO"} onPress={() =>openCamera()} />
             <ButtonCustom disabled={adress.image} label={"SELECCIONAR IMAGEN"} onPress={() => selectImageFromGallery() } />
-            <ButtonCustom label={"OBTENER UBICACIÓN"} onPress={() =>{}} />
+            {/* <ButtonCustom label={"OBTENER UBICACIÓN"} onPress={() =>{}} /> */}
             <View style={styles.containerButton}>
                 <ButtonCustom disabled={!adress.image || adress.currentAdress === ''} color={Colors.primary} label={"CONFIRMAR"} onPress={() => addNewAddress()} />
             </View>
@@ -92,5 +92,10 @@ const styles = StyleSheet.create({
       trash:{
           marginRight:20,
           alignItems:'flex-end'
+      },
+      image:{
+        width: 200, 
+        height: 200, 
+        borderRadius:10,
       }
 });

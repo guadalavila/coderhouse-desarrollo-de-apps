@@ -2,19 +2,29 @@ import React from "react";
 import { StyleSheet, Text, View, Modal as ModalRN, Pressable } from "react-native";
 import { Colors } from "../utils/colors";
 
-const Modal = ({ title, message, onCancel, confirm = false }) => {
+const Modal = ({ title, message, onCancel, onConfirm = undefined}) => {
     return (
         <ModalRN animationType="slide" transparent={true} visible={true}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <Text style={styles.modalText}>{title}</Text>
                     <Text style={styles.message}>{message}</Text>
-                    <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={onCancel}
-                    >
-                        <Text style={styles.textStyle}>Cerrar</Text>
-                    </Pressable>
+                    <View style={{flexDirection:'row'}}>
+                        {onConfirm &&
+                            <Pressable
+                                style={[styles.button, styles.buttonConfirm]}
+                                onPress={onConfirm}
+                            >
+                                <Text style={styles.textConfirmStyle}>Aceptar</Text>
+                            </Pressable>
+                        }
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={onCancel}
+                        >
+                            <Text style={styles.textStyle}>Cerrar</Text>
+                        </Pressable>
+                    </View>
                 </View>
             </View>
         </ModalRN>
@@ -55,8 +65,18 @@ const styles = StyleSheet.create({
     buttonClose: {
         backgroundColor: Colors.primary,
     },
+    buttonConfirm: {
+        backgroundColor: Colors.grey,
+        marginRight:10, 
+    },
     textStyle: {
         color: "#000",
+        fontWeight: "bold",
+        textAlign: "center",
+        fontSize:16
+    },
+    textConfirmStyle: {
+        color: "#fff",
         fontWeight: "bold",
         textAlign: "center",
         fontSize:16
@@ -69,5 +89,6 @@ const styles = StyleSheet.create({
     },
     message: {
         fontSize:16,
-    }
+    },
+
 });

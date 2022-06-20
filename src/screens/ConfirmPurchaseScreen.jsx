@@ -29,7 +29,7 @@ const ConfirmPurchaseScreen = ({navigation}) => {
     }
     
     const confirmPurchase_ = () => {
-        dispatch(confirmPurchase({cart: cart, total: getTotal()}))
+        dispatch(confirmPurchase({cart: cart, total: getTotal(), address: addressSelect.address }))
     }
 
     return (
@@ -41,10 +41,12 @@ const ConfirmPurchaseScreen = ({navigation}) => {
                     data={address}
                     renderItem={(item) => (
                         <AddressItemSelector
-                            isSelect={item.item.id === addressSelect}
+                            isSelect={item.item.id === addressSelect?.id}
                             key={item.item.id}
                             item={item.item}
-                            callback={(address_) => setAddressSelect(address_)}
+                            callback={(address_) => {
+                                setAddressSelect(address_)
+                            }}
                         />
                     )}
                     keyExtractor={(item) => item.id}

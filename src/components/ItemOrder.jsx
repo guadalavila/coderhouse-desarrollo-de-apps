@@ -8,6 +8,10 @@ const ItemOrder = ({item: {date, items}}) => {
     <View style={styles.item}>
         <View>
             <Text>{date}</Text>
+            <View style={styles.itemRow}>
+                <Text>Dirección  </Text>
+                <Text style={{fontWeight:'bold'}}>{items.address ?? ''}</Text>
+            </View>
             <Text style={styles.textTotal}>TOTAL ${items.total}</Text>
             {showDetail &&
                 <View>
@@ -53,7 +57,6 @@ const styles = StyleSheet.create({
         justifyContent:'space-between'
     },
     textTotal:{
-        marginTop:10,
         fontWeight:'bold',
         fontSize:16
     },
@@ -70,5 +73,10 @@ const styles = StyleSheet.create({
         paddingTop:6,
         marginTop:6,
         width: Dimensions.get('screen').width * 0.4,
+    },
+    itemRow:{
+        flexDirection:'row',
+        justifyContent: 'space-between',
+        marginVertical:4
     }
 })

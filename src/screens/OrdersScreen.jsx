@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import ItemOrder from '../components/ItemOrder';
 import Loading from '../components/Loading';
 import {  getOrders } from '../features/orders';
-import { ORDERS } from '../mock/orders';
 import { Colors } from '../utils/colors';
 
 const OrdersScreen = () => {

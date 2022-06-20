@@ -69,7 +69,7 @@ const TabNavigatorLogged = () => {
         name="AdressTab"
         component={AdressStack}
         options={{
-          unmountOnBlur: false,
+          unmountOnBlur: true,
           tabBarIcon: ({ focused }) => {
             return (
               <View style={styles.item}>
