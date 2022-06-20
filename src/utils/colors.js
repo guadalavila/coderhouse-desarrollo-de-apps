@@ -8,6 +8,7 @@ export const Colors= {
     danger:'#E9250E',
     success:'#43B60C',
     black: '#000000',
-    green: '#068979'
+    green: '#068979',
+    blue: '#2F2E41',
 }
 

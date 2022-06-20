@@ -9,9 +9,11 @@ import { Colors } from '../utils/colors';
 const OrdersScreen = () => {
     const dispatch = useDispatch();
     const { orders, loading } = useSelector((state) => state.orders.value);
+    const { user } = useSelector((state) => state.auth.value);
+
 
     useEffect(() => {
-      dispatch(getOrders())
+      dispatch(getOrders(user.email))
     }, [])
 
     if(loading){

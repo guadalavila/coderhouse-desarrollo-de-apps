@@ -14,6 +14,7 @@ const ConfirmPurchaseScreen = ({navigation}) => {
     const [orderConfirm, setOrderConfirm] = useState(false)
     const { address } = useSelector((state) => state.address.value);
     const { cart, loading, response } = useSelector((state) => state.cart.value);
+    const { user } = useSelector((state) => state.auth.value);
     const { getTotal } = useTotalCart();
     const dispatch = useDispatch();
 
@@ -29,7 +30,13 @@ const ConfirmPurchaseScreen = ({navigation}) => {
     }
     
     const confirmPurchase_ = () => {
-        dispatch(confirmPurchase({cart: cart, total: getTotal(), address: addressSelect.address }))
+        const purchase = {
+            cart: cart, 
+            total: getTotal(), 
+            address: addressSelect.address, 
+            email: user.email 
+        }
+        dispatch(confirmPurchase(purchase))
     }
 
     return (

@@ -14,10 +14,8 @@ const initialState = {
 export const addAddressDB = createAsyncThunk('address/addToDB', async (data, asyncThunk) => {
     try {
         const result = await insertAddress(data.id, data.address, data.image);
-        console.log(result.insertId);
         return `Record succesfully row with id: ${result.insertId}`;
     } catch (error) {
-        console.log(error.message);
         return asyncThunk.rejectWithValue('Error at writing address on db');
     }
 });
@@ -35,11 +33,9 @@ export const getAllAddress = createAsyncThunk('address/getAddress', async (_, as
 export const removeAddressDB = createAsyncThunk('address/removeToDB', async (id, asyncThunk) => {
     try {
         const result = await deleteAddress(id);
-        console.log('Remove address db result:');
         console.log(result);
         return `Item with id: ${id} removed successfully`;
     } catch (error) {
-        console.log(error.message);
         return asyncThunk.rejectWithValue(`Error at remove item with id: ${id}`);
     }
 });
